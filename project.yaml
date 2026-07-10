@@ -1,0 +1,22 @@
+id: 1203
+title: Clipfix
+status: active
+type: utility
+primary_language: python
+languages:
+  - python
+tags:
+  - clipboard
+  - automation
+  - regex
+  - tray-app
+  - windows
+dependencies:
+  python:
+    - pyperclip
+    - pystray
+    - pyyaml
+    - pillow
+github:
+  owner: Knarkoffer
+  repo: clipfix

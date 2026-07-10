@@ -1,0 +1,19 @@
+rules:
+  - name: "Remove ChatGPT UTM source"
+    enabled: true
+    type: regex_replace
+    pattern: '\?utm_source=chatgpt\.com$'
+    replacement: ''
+    stop_after_processing: false
+  - name: "Extract BBC iPlayer episode ID"
+    enabled: true
+    type: regex_replace
+    pattern: '^https://www\.bbc\.co\.uk/iplayer/episode/([a-z0-9]+)/.*$'
+    replacement: '\1'
+    stop_after_processing: true
+  - name: "Fix confluence links"
+    enabled: true
+    type: regex_replace
+    pattern: '^https://confluence\.example\.com/spaces/[^/]+/pages/(\d+)(?:/.*)?$'
+    replacement: 'https://confluence.example.com/pages/releaseview.action?pageId=\1'
+    stop_after_processing: true
