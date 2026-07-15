@@ -6,8 +6,9 @@ primary_language: python
 languages:
   - python
 tags:
-  - clipboard
   - automation
+  - clipboard
+  - link-cleanup
   - regex
   - tray-app
   - windows
