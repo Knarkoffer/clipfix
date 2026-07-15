@@ -25,11 +25,6 @@ Install the packages with:
 python -m pip install -e .
 ```
 
-For development tools:
-
-```bash
-pip install -e ".[dev]"
-```
 
 On Windows, `py` can be used instead:
 
