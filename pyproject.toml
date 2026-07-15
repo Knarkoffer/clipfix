@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "clipfix"
+version = "0.1.0"
+description = "Small Python tray app that watches the clipboard and rewrites copied text using configurable regex rules."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "pyperclip",
+    "pystray",
+    "PyYAML==6.0.1",
+    "Pillow==12.2.0",
+]
+[project.optional-dependencies]
+dev = [
+    "black",
+    "ruff",
+]
+
+[project.scripts]
+clipfix = "clipfix:main"
+
+[tool.setuptools]
+py-modules = ["clipfix"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

@@ -22,13 +22,19 @@ Clipfix is a small Python tray app that watches the clipboard and rewrites match
 Install the packages with:
 
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install -e .
+```
+
+For development tools:
+
+```bash
+pip install -e ".[dev]"
 ```
 
 On Windows, `py` can be used instead:
 
 ```bat
-py -m pip install -r requirements.txt
+py -m pip install -e .
 ```
 
 ## Usage
@@ -36,7 +42,7 @@ py -m pip install -r requirements.txt
 Run the app from the repository directory:
 
 ```bash
-python clipfix.py
+clipfix
 ```
 
 On Windows, `run_clipfix.bat` is included only as an ease-of-use launcher. It starts `clipfix.py` with `pyw` or `pythonw` when available so the app can run without a console window.
@@ -71,7 +77,6 @@ Rules are applied in file order. Clipfix checks for ruleset changes every few se
 ## Project Files
 
 - `clipfix.py`: Main tray application and clipboard monitor.
-- `requirements.txt`: Python package dependencies.
 - `ruleset.yaml`: Editable regex rules.
 - `clipboard_icon.png`: Tray icon.
 - `run_clipfix.bat`: Optional Windows convenience launcher.

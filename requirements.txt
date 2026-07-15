@@ -1,4 +1,0 @@
-pyperclip
-pystray
-PyYAML==6.0.1
-Pillow==12.2.0

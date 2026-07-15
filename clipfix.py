@@ -37,7 +37,7 @@ def load_rules(path="ruleset.yaml"):
     if not os.path.isfile(path):
         raise FileNotFoundError("No ruleset found!")
 
-    with open(path, "r", encoding="utf-8") as file:
+    with open(path, encoding="utf-8") as file:
         data = yaml.safe_load(file) or {}
 
     rules = data.get("rules", [])
