@@ -219,3 +219,6 @@ __marimo__/
 
 # Log file
 app.log
+
+# Local rules (the committed template is ruleset.example.yaml)
+ruleset.yaml

@@ -2,20 +2,45 @@ import atexit
 import logging
 import os.path
 import re
+import shutil
 import sys
 import threading
 import time
 
-import pyperclip
-import pystray
 import yaml
-from PIL import Image
 
 RULESET_RELOAD_INTERVAL_SECONDS = 5
+RULESET_ENVIRONMENT_VARIABLE = "CLIPFIX_RULESET"
 
 
 def resource_path(filename):
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+
+
+def rules_path():
+    configured_path = os.environ.get(RULESET_ENVIRONMENT_VARIABLE)
+
+    if configured_path:
+        return os.path.abspath(os.path.expanduser(configured_path))
+
+    return os.path.join(os.path.expanduser("~"), ".clipfix", "ruleset.yaml")
+
+
+def initialize_rules_file(path, example_path=None):
+    if os.path.exists(path):
+        return
+
+    if example_path is None:
+        example_path = resource_path("ruleset.example.yaml")
+
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    try:
+        with open(example_path, "rb") as source, open(path, "xb") as destination:
+            shutil.copyfileobj(source, destination)
+    except FileExistsError:
+        # Another Clipfix process created the file after the existence check.
+        pass
 
 
 def configure_logging(path):
@@ -33,7 +58,10 @@ def delete_log_file(path):
         os.remove(path)
 
 
-def load_rules(path="ruleset.yaml"):
+def load_rules(path=None):
+    if path is None:
+        path = rules_path()
+
     if not os.path.isfile(path):
         raise FileNotFoundError("No ruleset found!")
 
@@ -99,6 +127,8 @@ def apply_rules(text, rules):
 
 
 def monitor_clipboard(rules_path, rules_mtime, rules):
+    import pyperclip
+
     previous_text = None
     last_rules_check = 0
 
@@ -132,6 +162,8 @@ def monitor_clipboard(rules_path, rules_mtime, rules):
 
 
 def load_icon(path):
+    from PIL import Image
+
     if not os.path.isfile(path):
         sys.exit("No icon found!")
 
@@ -144,7 +176,9 @@ def on_exit(icon, item, log_path):
 
 
 def main():
-    rules_path = resource_path("ruleset.yaml")
+    import pystray
+
+    configured_rules_path = rules_path()
     log_path = resource_path("app.log")
 
     try:
@@ -155,7 +189,8 @@ def main():
         sys.exit(str(error))
 
     try:
-        rules_mtime, rules = load_rules_and_mtime(rules_path)
+        initialize_rules_file(configured_rules_path)
+        rules_mtime, rules = load_rules_and_mtime(configured_rules_path)
     except Exception as error:
         sys.exit(str(error))
 
@@ -170,7 +205,7 @@ def main():
 
     threading.Thread(
         target=monitor_clipboard,
-        args=(rules_path, rules_mtime, rules),
+        args=(configured_rules_path, rules_mtime, rules),
         daemon=True,
     ).start()
 

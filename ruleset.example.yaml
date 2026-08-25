@@ -14,6 +14,6 @@ rules:
   - name: "Fix confluence links"
     enabled: true
     type: regex_replace
-    pattern: '^https://confluence\.example\.com/spaces/[^/]+/pages/(\d+)(?:/.*)?$'
-    replacement: 'https://confluence.example.com/pages/releaseview.action?pageId=\1'
+    pattern: '^https://confluence\.example\.com/spaces/[^/]+/pages/(\d+)(?:/[^#]*)?(#.*)?$'
+    replacement: 'https://confluence.example.com/pages/releaseview.action?pageId=\1\2'
     stop_after_processing: true

@@ -5,7 +5,7 @@ Clipfix is a small Python tray app that watches the clipboard and rewrites match
 ## Features
 
 - Monitors clipboard text in the background.
-- Applies ordered `regex_replace` rules from `ruleset.yaml`.
+- Applies ordered `regex_replace` rules from a per-user ruleset.
 - Reloads the ruleset automatically while running.
 - Supports per-rule enable flags and stop-after-match behavior.
 - Provides a tray icon with an Exit menu item.
@@ -46,7 +46,12 @@ When Clipfix is running, copy text as usual. If the clipboard text matches an en
 
 ## Rules
 
-Rules live in `ruleset.yaml` next to `clipfix.py`.
+Rules live in `.clipfix/ruleset.yaml` in your home directory. On Windows, this
+is normally `C:\Users\<username>\.clipfix\ruleset.yaml`.
+
+On first run, Clipfix creates this file from the public
+`ruleset.example.yaml` template. It never overwrites an existing ruleset.
+Set the `CLIPFIX_RULESET` environment variable to use a different location.
 
 ```yaml
 rules:
@@ -72,7 +77,7 @@ Rules are applied in file order. Clipfix checks for ruleset changes every few se
 ## Project Files
 
 - `clipfix.py`: Main tray application and clipboard monitor.
-- `ruleset.yaml`: Editable regex rules.
+- `ruleset.example.yaml`: Public template copied for new users on first run.
 - `clipboard_icon.png`: Tray icon.
 - `run_clipfix.bat`: Optional Windows convenience launcher.
 
