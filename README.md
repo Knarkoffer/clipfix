@@ -83,4 +83,5 @@ Rules are applied in file order. Clipfix checks for ruleset changes every few se
 
 ## License
 
-MIT License. See `LICENSE`.
+Clipfix is licensed under the GNU General Public License version 3 only.
+See [`LICENSE`](LICENSE).

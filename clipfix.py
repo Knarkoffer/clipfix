@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Knarkoffer
+# SPDX-License-Identifier: GPL-3.0-only
+
 import atexit
 import logging
 import os.path

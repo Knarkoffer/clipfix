@@ -8,6 +8,9 @@ description = "Small Python tray app that watches the clipboard and rewrites cop
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+]
 dependencies = [
     "pyperclip",
     "pystray",
